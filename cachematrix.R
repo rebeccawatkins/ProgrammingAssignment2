@@ -1,4 +1,4 @@
-##the MakeCacheMatrix function caches the 
+##the makeCacheMatrix function creates a matrix list that holds both the matrix and the inverse
 makeCacheMatrix <- function(incoming) {
      actualmatrix<-incoming
      inversematrix<-solve(incoming)
