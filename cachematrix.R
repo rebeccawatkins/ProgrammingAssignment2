@@ -1,15 +1,32 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+##the MakeCacheMatrix function caches the 
+makeCacheMatrix <- function(incoming) {
+     actualmatrix<-incoming
+     inversematrix<-solve(incoming)
+     list(actualmatrix=actualmatrix,inversematrix=inversematrix)
 }
-
-
-## Write a short comment describing this function
-
+     
+## Return a matrix that is the inverse of an incoming matrix or CacheMatrix.
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+     ##I could not get a mu
+     if ((class(x)!="matrix" && class(x)!="list") |(class(x)=="list" && !all(names(x)==c("actualmatrix","inversematrix")))) {
+          message("invalid object class passed to cacheSolve. Please pass CacheMatrix or matrix.")
+        return("")
+     }
+     if(class(x)=="matrix") {
+          message("matrix passed. Getting inverse. [Inverse will not be cached.]")
+          inv<-solve(x)
+     } 
+     if(class(x)=="list" &&  is.null(x$inverse)){
+          if(is.null(x$inversematrix)){
+               message("null CacheMatrix passed. Please pass valid CacheMatrix")
+               return()
+          }
+          message("CacheMatrix passed with null Inverse. Getting inverse. [Inverse will not be cached.]")
+          inv<-solve(x)  
+     }
+     if(class(x)=="list" && !is.null(x$inverse)){
+          message("Getting CacheMatrix inverse")
+          inv<-x$inverse
+     }
+     inv  
 }
